@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Base64 Tools</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css">
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Rubik+Mono+One&display=swap');
+    html,
+    body {
+        height: 100%;
+    }
+    .padding-sm {
+        padding: 2em;
+    }
+    .title {
+        font-family: "Rubik Mono One", monospace;
+        font-weight: 400;
+        font-style: normal;
+    }
+    .textarea {
+        /* Remove max-height limitation from Bulma CSS */
+        max-height: 1000em !important;
+        height: 100%;
+        font-family: "IBM Plex Mono", monospace;
+        font-weight: 400;
+        font-style: normal;
+        margin-bottom: .4em;
+    }
+    .content {
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+    </style>
+</head>
+
+<body>
+    <div class="padding-sm content">
+        <h1 class="title is-1">Base64 Tools</h1>
+        <p>Paste the text you want to encode here:</p>
+        <textarea class="textarea" placeholder="Paste your text here..." id="input-text" onkeydown="encode_text()" onpaste="encode_text()" onmousemove="encode_text()"></textarea>
+        <p>Base64 encoded text will be shown here: <small><i>(You can also paste Base64 encoded text here and decoded text will be shown on top)</i></small></p>
+        
+        <textarea class="textarea" placeholder="Output will be shown here..." id="output-text" onkeydown="decode_text()" onpaste="decode_text()" onmousemove="decode_text()"></textarea>
+    </div>
+</body>
+<!-- Using a proxy to include a JavaScript file from a GitHub repository -->
+<!-- This is a shared script I use which has some shorthands for stuff
+     like document.getElementById and document.querySelector
+     You can check the file yourself to see what all methods it has -->
+<script src="https://cdn.jsdelivr.net/gh/theonlyasdk/libasdk/web/commons.js"></script>
+<script>
+let input_text = query("#input-text");
+let output_text = query("#output-text");
+
+function encode_text() {
+    try { output_text.value = btoa(input_text.value); } 
+    catch (e) { output_text.value = "Unable to generate Base64: Input string contains characters that are more than one byte long (encoding Unicode characters are not supported)"; }
+}
+
+function decode_text() {
+    try { input_text.value = atob(output_text.value); }
+    catch (e) { input_text.value = "Invalid Base64"; }
+}
+</script>
+
+</html>
