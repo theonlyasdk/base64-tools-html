@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Base64 Tools</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@1.0.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <style>
     @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Rubik+Mono+One&display=swap');
     html,
@@ -19,6 +20,7 @@
         font-family: "Rubik Mono One", monospace;
         font-weight: 400;
         font-style: normal;
+        margin: .4em 0 .6em 0;
     }
     .textarea {
         /* Remove max-height limitation from Bulma CSS */
@@ -34,33 +36,52 @@
         flex-direction: column;
         height: 100%;
     }
+    .d-flex-row {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .d-flex-row>* {
+        flex: 1;
+        margin: .2em;
+    }
+    .title-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
     </style>
 </head>
 
 <body>
     <div class="padding-sm content">
-        <h1 class="title is-1">Base64 Tools</h1>
-        <p>Paste the text you want to encode here:</p>
-        <textarea class="textarea" placeholder="Paste your text here..." id="input-text" onkeydown="encode_text()" onpaste="encode_text()" onmousemove="encode_text()"></textarea>
-        <p>Base64 encoded text will be shown here: <small><i>(You can also paste Base64 encoded text here and decoded text will be shown on top)</i></small></p>
-
-        <textarea class="textarea" placeholder="Output will be shown here..." id="output-text" onkeydown="decode_text()" onpaste="decode_text()" onmousemove="decode_text()"></textarea>
+        <div class="title-container">
+            <h1 class="title is-1">Base64 Tools</h1>
+            <a href="https://github.com/theonlyasdk/base64-tools-html/" target="_blank" class="button is-primary gh-link is-dark"><i class="bi bi-github"></i></a>
+        </div>
+        <textarea class="textarea" placeholder="Paste or type in your text here..." id="input-text"></textarea>
+        <textarea class="textarea" placeholder="Output will be shown here..." id="output-text"></textarea>
+        <div class="d-flex-row">
+            <button class="button is-primary" onclick="encode_text()">Encode</button>
+            <button class="button is-primary" onclick="decode_text()">Decode</button>
+        </div>
     </div>
 </body>
 <script src="libasdk/web/commons.js"></script>
 <script>
-let input_text = query("#input-text");
-let output_text = query("#output-text");
+    let input_text = query("#input-text");
+    let output_text = query("#output-text");
 
-function encode_text() {
-    try { output_text.value = btoa(input_text.value); } 
-    catch (e) { output_text.value = "Unable to generate Base64: Input string contains characters that are more than one byte long (encoding Unicode characters are not supported)"; }
-}
+    function encode_text() {
+        try { output_text.value = btoa(input_text.value); }
+        catch (e) { output_text.value = "Unable to generate Base64: Input string contains characters that are more than one byte long (encoding Unicode characters are not supported)"; }
+    }
 
-function decode_text() {
-    try { input_text.value = atob(output_text.value); }
-    catch (e) { input_text.value = "Invalid Base64"; }
-}
+    function decode_text() {
+        try { input_text.value = atob(output_text.value); }
+        catch (e) { input_text.value = "Invalid Base64"; }
+    }
 </script>
 
 </html>
