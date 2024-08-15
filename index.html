@@ -43,15 +43,11 @@
         <p>Paste the text you want to encode here:</p>
         <textarea class="textarea" placeholder="Paste your text here..." id="input-text" onkeydown="encode_text()" onpaste="encode_text()" onmousemove="encode_text()"></textarea>
         <p>Base64 encoded text will be shown here: <small><i>(You can also paste Base64 encoded text here and decoded text will be shown on top)</i></small></p>
-        
+
         <textarea class="textarea" placeholder="Output will be shown here..." id="output-text" onkeydown="decode_text()" onpaste="decode_text()" onmousemove="decode_text()"></textarea>
     </div>
 </body>
-<!-- Using a proxy to include a JavaScript file from a GitHub repository -->
-<!-- This is a shared script I use which has some shorthands for stuff
-     like document.getElementById and document.querySelector
-     You can check the file yourself to see what all methods it has -->
-<script src="https://cdn.jsdelivr.net/gh/theonlyasdk/libasdk/web/commons.js"></script>
+<script src="libasdk/web/commons.js"></script>
 <script>
 let input_text = query("#input-text");
 let output_text = query("#output-text");

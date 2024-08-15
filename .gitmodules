@@ -1,0 +1,3 @@
+[submodule "libasdk"]
+	path = libasdk
+	url = https://github.com/theonlyasdk/libasdk
